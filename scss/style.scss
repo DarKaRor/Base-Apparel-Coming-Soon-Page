@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+// Colors
+$desaturated-red: hsl(0, 36%, 70%);
+$soft-red: hsl(0, 93%, 68%);
+$dark-grayish-red: hsl(0, 6%, 24%);
+
+// Mixins
+
+@mixin background($img, $gradient: false, $position: center, $size: cover, $repeat: no-repeat) {
+    $background: $img;
+    // Fallback
+    background-image: $img;
+    @if ($gradient) {
+        $background: $background + " , " + $gradient;
+    }
+    background-size: $size;
+    background-repeat: $repeat;
+    background-image: $background;
+    background-position: $position;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    font-size: 16px;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+    a {
+        color: gray;
+        text-decoration: none;
+    }
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    $form-width: 57.65vw;
+
+    .form-container {
+        width: $form-width;
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        padding-left: 11.45vw;
+        padding-right: 11.45vw;
+        padding-top: 65px;
+        $img: url("../images/bg-pattern-desktop.svg");
+        @include background($img, linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(0, 100%, 98%) 100%));
+
+        .logo {
+            display: block;
+            margin-bottom:130px;
+        }
+
+        h1 {
+            span {
+                font-weight: 300;
+            }
+            font-size: 4.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1rem;
+            line-height: 1.05em;
+            color: $dark-grayish-red;
+        }
+
+        p {
+            font-weight: 600;
+            line-height: 1.7em;
+            width: 90%;
+            margin-bottom: 40px;
+        }
+
+        .error_msg{
+            color: $soft-red;
+            margin-left: 20px;
+            display:none;
+        }
+
+        form {
+            width: 90%;
+            position: relative;
+
+            &.error{
+                input{
+                    &[type="text"]{
+                        border: 3px solid #f86460;
+                    }
+                }
+
+                ~.error_msg{
+                    display:block;
+                }
+            }
+
+            input {
+                position: relative;
+                &[type="text"] {
+                    $color: #dacbce;
+                    border-radius: 50px;
+                    padding: 20px 30px 20px 30px;
+                    border: 1px solid $color;
+                    font-family: "Josefin Sans", sans-serif;
+                    color: $color;
+                    font-size: 0.95rem;
+                    background-color: transparent;
+                    width: 100%;
+
+                    &::placeholder {
+                        color: $color;
+                    }
+                }
+            }
+
+            button[type="submit"] {
+                position: absolute;
+                top:0;
+                right: 0;
+                width: 22%;
+                height: 100%;
+                background:linear-gradient(135deg, hsl(0, 80%, 86%) 0%, hsl(0, 74%, 74%) 100%);
+                border: none;
+                color: white;
+                font-size: 1.2rem;
+                padding: 20px 30px 20px 30px;
+                border-radius: 50px;
+                font-family: "Josefin Sans", sans-serif;
+                cursor: pointer;
+                box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.2);
+                display:flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .img-container {
+        width: 100vw - $form-width;
+        height: 100%;
+        @include background(url("../images/hero-desktop.jpg"), false, center);
+    }
+}
+
+.red {
+    color: $desaturated-red;
+}
+
+.logo-mobile{
+    display:none;
+}
+
+@media only screen and (max-width:1100px){
+    .container{
+        .form-container{
+            padding-left: 10vw;
+            padding-right: 10vw;
+
+            h1{
+                font-size: 3.5rem;
+            }
+
+            p{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:750px){
+
+    .attribution{
+        display:none;
+    }
+
+    body{
+        height: fit-content;
+    }
+
+    .logo-mobile{
+        display:block;
+        padding:32px;
+        text-align: left;
+        width:100%;
+    }
+
+    .container{
+        height:fit-content;
+        flex-direction: column-reverse;
+
+        .form-container,.img-container{
+            width:100%;
+        }
+
+        .form-container{
+            height:fit-content;
+            text-align: center;
+
+            h1{
+                font-size: 2.5rem;
+            }
+
+            p{
+                font-size: .9rem;
+            }
+
+            .logo{
+                display:none;
+            }
+
+            form{
+                margin-bottom:40px;
+
+                &.error{
+                    margin-bottom:10px;
+
+                    ~.error-msg{
+                        margin-bottom:0px;   
+                    }
+                }
+            }
+
+            .error_msg{
+                text-align: left;
+            }
+            
+        }
+
+        .img-container{
+            height:375px;
+            background-position:top;
+        }
+    }
+}
